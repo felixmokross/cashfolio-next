@@ -1,6 +1,6 @@
-import { availableLocales } from "cldr-core/availableLocales.json";
-import { defaultContent } from "cldr-core/defaultContent.json";
-import { supplemental } from "cldr-core/supplemental/currencyData.json";
+import availableLocales from "cldr-core/availableLocales.json";
+import defaultContent from "cldr-core/defaultContent.json";
+import supplemental from "cldr-core/supplemental/currencyData.json";
 import { getDisplayNameOfLocale } from "./utils";
 
 export function getLocales() {
@@ -8,7 +8,9 @@ export function getLocales() {
   // In case that the user chooses such a locale, there might be differences in rendering between server and client
   // Consider to improve the user experience
   return Intl.NumberFormat.supportedLocalesOf(
-    availableLocales.modern.concat(defaultContent)
+    availableLocales.availableLocales.modern.concat(
+      defaultContent.defaultContent
+    )
   );
 }
 
@@ -25,8 +27,8 @@ export function getSuggestedCurrencyForLocale(locale: string) {
 
   if (!region) return undefined;
 
-  return supplemental.currencyData.region[
-    region as keyof typeof supplemental.currencyData.region
+  return supplemental.supplemental.currencyData.region[
+    region as keyof typeof supplemental.supplemental.currencyData.region
   ]
     ?.flatMap((o) => Object.entries(o))
     .filter(([_, v]) => !v._to && v._tender !== "false")
