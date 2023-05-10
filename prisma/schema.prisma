@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String @id @default(cuid())
+  auth0UserId     String @unique
+  preferredLocale String @default("en")
+  refCurrency     String @default("USD")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accounts     Account[]
+  assetClasses AssetClass[]
+}
+
+model Account {
+  id   String      @default(cuid())
+  name String
+  slug String
+  type AccountType @default(ASSET)
+
+  assetClass   AssetClass? @relation(fields: [assetClassId, userId], references: [id, userId])
+  assetClassId String?
+
+  unit AccountUnit @default(CURRENCY)
+
+  currency String?
+
+  preExisting Boolean @default(false)
+
+  balanceAtStart Decimal?
+
+  openingDate DateTime? @db.Date
+  closingDate DateTime? @db.Date
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Restrict)
+  userId String
+
+  @@id([id, userId])
+  @@unique([slug, userId])
+}
+
+model AssetClass {
+  id        String    @default(cuid())
+  name      String
+  sortOrder Int       @default(0)
+  accounts  Account[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Restrict)
+  userId String
+
+  @@id([id, userId])
+}
+
+enum AccountUnit {
+  CURRENCY
+  STOCK
+}
+
+enum AccountType {
+  ASSET
+  LIABILITY
+}
