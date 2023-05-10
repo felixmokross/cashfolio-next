@@ -17,7 +17,9 @@
     "@types/node": "20.1.1",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
+    "accept-language-parser": "^1.5.0",
     "autoprefixer": "10.4.14",
+    "cldr-core": "^43.0.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "next": "13.4.1",
@@ -32,6 +34,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
+    "@types/accept-language-parser": "^1.5.3",
     "prettier": "2.8.8",
     "prisma": "^4.14.0"
   }
