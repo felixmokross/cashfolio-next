@@ -10,7 +10,7 @@ export const loginSessionStorage = createCookieSessionStorage({
   },
 });
 
-export async function getLoginSession(request: Request) {
+export async function getLoginSession() {
   return loginSessionStorage.getSession();
 }
 
@@ -27,7 +27,7 @@ export async function createLoginSession({
   codeVerifier: string;
   state: string;
 }) {
-  const loginSession = await getLoginSession(request);
+  const loginSession = await getLoginSession();
   loginSession.flash("redirectTo", redirectTo);
   loginSession.flash("codeVerifier", codeVerifier);
   loginSession.flash("state", state);

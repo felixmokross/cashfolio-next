@@ -37,8 +37,14 @@ export function createCookieSessionStorage({
         },
       } as Session;
     },
-    async commitSession(session: Session) {
-      return `${cookie.name}=${session}; HttpOnly; Path=${cookie.path}; SameSite=${cookie.sameSite}; Secure=${cookie.secure}`;
+    async commitSession(
+      session: Session,
+      options: CookieSerializeOptions = {}
+    ) {
+      return `${cookie.name}=${session}; HttpOnly; Path=${cookie.path}; SameSite=${cookie.sameSite}; Secure=${cookie.secure}; Max-Age=${options.maxAge}`;
+    },
+    async destroySession(session: Session) {
+      return `${cookie.name}=; HttpOnly; Path=${cookie.path}; SameSite=${cookie.sameSite}; Secure=${cookie.secure}; Max-Age=0`;
     },
   };
 }
@@ -49,3 +55,7 @@ type Session = {
   flash(key: string, value: string): void;
 };
 type SessionCookie = Record<string, { value: string; isFlash: boolean }>;
+
+type CookieSerializeOptions = {
+  maxAge?: number;
+};
