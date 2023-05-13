@@ -31,6 +31,7 @@ export function AccountFormFields({
   const [preExisting, setPreExisting] = useState(account?.preExisting || false);
   return (
     <div className="grid grid-cols-6 gap-x-4 gap-y-8">
+      {account && <input type="hidden" name="accountId" value={account.id} />}
       <Input
         name="name"
         label="Name"
