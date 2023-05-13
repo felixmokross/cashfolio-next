@@ -13,7 +13,7 @@ export async function assetClassExists(
 ) {
   return !!(await prisma.assetClass.findUnique({
     where: { id_userId: { id, userId } },
-    select: {},
+    select: { _count: true },
   }));
 }
 
