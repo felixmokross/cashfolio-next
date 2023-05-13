@@ -15,6 +15,10 @@ import { getSession } from "@/session.server";
 import { createUser } from "@/models/users.server";
 import { redirect } from "next/navigation";
 
+export const meta = {
+  title: "Complete Signup",
+};
+
 export default function Signup({
   searchParams,
 }: {

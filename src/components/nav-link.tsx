@@ -1,21 +1,23 @@
 "use client";
 
-import Link, { LinkProps } from "next/link";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Ref, forwardRef } from "react";
+import { ElementType, Ref, forwardRef } from "react";
 import { cn } from "./classnames";
+import { PolymorphicComponentProps } from "@/utils";
 
-export type NavLinkProps = Omit<LinkProps, "className">;
+export type NavLinkProps<T extends ElementType = typeof Link> =
+  PolymorphicComponentProps<T>;
 
-export const NavLink = forwardRef(function NavLink(
-  { href, ...props }: NavLinkProps,
-  ref: Ref<HTMLAnchorElement>
-) {
+export const NavLink = forwardRef(function NavLink<
+  T extends ElementType = typeof Link
+>({ as, href, ...props }: NavLinkProps<T>, ref: Ref<HTMLAnchorElement>) {
+  const Component = as || Link;
   const isActive = usePathname().startsWith(
     typeof href === "string" ? href : href.pathname || "/"
   );
   return (
-    <Link
+    <Component
       href={href}
       {...props}
       className={cn(

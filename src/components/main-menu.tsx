@@ -1,5 +1,4 @@
 import { Disclosure } from "@headlessui/react";
-import type { PropsWithChildren } from "react";
 import { currenciesByCode } from "@/currencies";
 import { getDisplayNameOfLocale } from "@/utils";
 import { useUser } from "../user-context";
@@ -13,9 +12,15 @@ export function MainMenu() {
   return (
     <>
       <div className="space-y-1 pb-3 pt-2">
-        <MainMenuLink href=".">Home</MainMenuLink>
-        <MainMenuLink href="accounts">Accounts</MainMenuLink>
-        <MainMenuLink href="asset-classes">Asset Classes</MainMenuLink>
+        <Disclosure.Button as={NavLink} href=".">
+          Home
+        </Disclosure.Button>
+        <Disclosure.Button as={NavLink} href="accounts">
+          Accounts
+        </Disclosure.Button>
+        <Disclosure.Button as={NavLink} href="asset-classes">
+          Asset Classes
+        </Disclosure.Button>
       </div>
       <div className="border-t border-slate-200 pb-3 pt-4">
         <div className="flex items-center px-4">
@@ -49,19 +54,15 @@ export function MainMenu() {
           </div>
         </div>
         <div className="mt-3 space-y-1">
-          <MainMenuLink href="logout">Log Out</MainMenuLink>
+          <Disclosure.Button as={AnchorNavLink} href="/logout">
+            Log Out
+          </Disclosure.Button>
         </div>
       </div>
     </>
   );
 }
 
-type MainMenuLinkProps = PropsWithChildren<{ href: NavLinkProps["href"] }>;
-
-function MainMenuLink({ href, children }: MainMenuLinkProps) {
-  return (
-    <Disclosure.Button as={NavLink} href={href}>
-      {children}
-    </Disclosure.Button>
-  );
+function AnchorNavLink(props: NavLinkProps) {
+  return <NavLink as="a" {...props} />;
 }
