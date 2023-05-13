@@ -1,6 +1,7 @@
-export const meta = {
-  title: "Logged Out",
-};
+import { getTitle } from "@/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = { title: getTitle("Logged Out") };
 
 export default function LoggedOut() {
   return (

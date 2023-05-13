@@ -10,6 +10,7 @@ import { createLoginSession } from "./login-session.server";
 import { safeRedirect } from "./utils";
 import type { User } from "@prisma/client";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 export async function authorize(
   request: Request,
@@ -56,7 +57,8 @@ export async function authorize(
 
 type AuthorizeMode = "signup" | "login";
 
-export async function requireUserId(url: string) {
+export async function requireUserId() {
+  const url = getRequestUrl();
   const auth0UserId = await requireAuth0UserId(url);
 
   const userId = await getUserIdByAuth0UserId(auth0UserId);
@@ -65,7 +67,8 @@ export async function requireUserId(url: string) {
   return userId;
 }
 
-export async function requireUser(url: string) {
+export async function requireUser() {
+  const url = getRequestUrl();
   const auth0UserId = await requireAuth0UserId(url);
 
   const user = await getUserByAuth0UserId(auth0UserId);
@@ -131,4 +134,11 @@ export function getOidcLogoutUrl(idToken: string) {
   )}&post_logout_redirect_uri=${encodeURIComponent(
     `${process.env.BASE_URL}/logged-out`
   )}`;
+}
+
+function getRequestUrl() {
+  const initialUrl = headers().get("x-initial-url");
+  invariant(initialUrl, "x-initial-url header is missing");
+
+  return initialUrl;
 }

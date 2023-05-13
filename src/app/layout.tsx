@@ -7,8 +7,6 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-export const metadata = { title: "Cashfolio" };
-
 export default function RootLayout({
   children,
 }: {

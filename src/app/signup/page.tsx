@@ -10,14 +10,13 @@ import {
 import Link from "next/link";
 import { pick } from "accept-language-parser";
 import { headers } from "next/headers";
-import { safeRedirect } from "@/utils";
+import { getTitle, safeRedirect } from "@/utils";
 import { getSession } from "@/session.server";
 import { createUser } from "@/models/users.server";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 
-export const meta = {
-  title: "Complete Signup",
-};
+export const metadata: Metadata = { title: getTitle("Complete Signup") };
 
 export default function Signup({
   searchParams,

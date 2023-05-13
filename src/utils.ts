@@ -30,7 +30,7 @@ export function getNumberFormatSymbols(locale: string) {
 
 export type PolymorphicComponentProps<T extends ElementType> = {
   as?: T;
-} & ComponentPropsWithoutRef<T>;
+} & Omit<ComponentPropsWithoutRef<T>, "as">;
 
 export function getTitle(pageTitle: string) {
   return `${pageTitle} · Cashfolio`;
