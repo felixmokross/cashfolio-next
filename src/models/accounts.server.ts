@@ -99,9 +99,8 @@ export type AccountValues = {
 };
 
 export async function getAccountValues(
-  request: Request
+  formData: FormData
 ): Promise<AccountValues> {
-  const formData = await request.formData();
   const name = formData.get("name");
   const type = formData.get("type");
   const assetClassId = formData.get("assetClassId");

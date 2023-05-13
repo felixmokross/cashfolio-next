@@ -1,3 +1,5 @@
+"use client";
+
 import { Disclosure } from "@headlessui/react";
 import { currenciesByCode } from "@/currencies";
 import { getDisplayNameOfLocale } from "@/utils";

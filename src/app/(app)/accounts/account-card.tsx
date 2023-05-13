@@ -1,8 +1,8 @@
 import type { Account } from "@prisma/client";
 import { AccountUnit } from "@prisma/client";
-import { useUser } from "@/components/user-context";
 import { currenciesByCode } from "@/currencies";
 import Link from "next/link";
+import { requireUser } from "@/auth.server";
 
 export type AccountCardProps = {
   account: Pick<Account, "name" | "slug" | "unit" | "currency">;
@@ -10,12 +10,12 @@ export type AccountCardProps = {
   balanceInRefCurrency: string;
 };
 
-export function AccountCard({
+export async function AccountCard({
   account,
   balance,
   balanceInRefCurrency,
 }: AccountCardProps) {
-  const { preferredLocale, refCurrency } = useUser();
+  const { preferredLocale, refCurrency } = await requireUser();
   const numberFormat = new Intl.NumberFormat(preferredLocale, {
     maximumFractionDigits: 0,
   });

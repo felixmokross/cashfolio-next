@@ -12,6 +12,8 @@ export function AccountList({ className, accounts }: AccountListProps) {
     <ul className={cn("flex flex-col gap-4 sm:grid sm:grid-cols-2", className)}>
       {accounts.map((a) => (
         <li key={a.account.slug}>
+          {/* See https://github.com/vercel/next.js/issues/42292 */}
+          {/* @ts-expect-error Server Component */}
           <AccountCard
             account={a.account}
             balance={a.balance}

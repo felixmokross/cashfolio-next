@@ -1,3 +1,5 @@
+import { SerializeFrom } from "@/serialize";
+
 export type FormActionData<TValues> = {
   ok: boolean;
   values?: TValues;
@@ -8,7 +10,7 @@ export type FormProps<TValues, TFormLoaderData> = {
   values?: TValues;
   errors?: FormErrors<TValues>;
   disabled: boolean;
-  data: TFormLoaderData;
+  data: SerializeFrom<TFormLoaderData>;
 };
 
 // inspired by Formik
