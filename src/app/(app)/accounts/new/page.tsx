@@ -7,9 +7,13 @@ import {
   validateAccountValues,
 } from "@/models/accounts.server";
 import { getAssetClasses } from "@/models/asset-classes.server";
+import { getTitle } from "@/utils";
 import { hasErrors } from "@/utils.server";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = { title: getTitle("New Account") };
 
 export default async function NewAccountPage() {
   const userId = await requireUserId();

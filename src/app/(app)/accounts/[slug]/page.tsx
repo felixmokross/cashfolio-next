@@ -9,11 +9,25 @@ import {
 } from "@/models/accounts.server";
 import { getAssetClasses } from "@/models/asset-classes.server";
 import { SerializeFrom } from "@/serialize";
+import { getTitle } from "@/utils";
 import { hasErrors } from "@/utils.server";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { Account } from "@prisma/client";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import invariant from "tiny-invariant";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const userId = await requireUserId();
+  const account = await getAccount(params.slug, userId);
+  if (!account) throw new Response(null, { status: 404 });
+
+  return { title: getTitle(account.name) };
+}
 
 export default async function EditAccountPage({
   params,
@@ -74,7 +88,7 @@ async function submit(formData: FormData) {
 
   const userId = await requireUserId();
   const values = await getAccountValues(formData);
-  const errors = await validateAccountValues(userId, undefined, values);
+  const errors = await validateAccountValues(userId, accountId, values);
 
   if (hasErrors(errors)) throw new Error("Invalid form data!");
 
