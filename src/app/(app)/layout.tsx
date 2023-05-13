@@ -1,6 +1,6 @@
 import { requireUser } from "@/auth.server";
 import { NavBar } from "@/components/nav-bar";
-import { UserProvider } from "@/user-context";
+import { UserProvider } from "@/components/user-context";
 
 export default async function AppLayout({
   children,

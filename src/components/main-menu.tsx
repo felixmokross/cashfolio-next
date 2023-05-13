@@ -1,7 +1,7 @@
 import { Disclosure } from "@headlessui/react";
 import { currenciesByCode } from "@/currencies";
 import { getDisplayNameOfLocale } from "@/utils";
-import { useUser } from "../user-context";
+import { useUser } from "./user-context";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
