@@ -21,9 +21,11 @@ export function MainMenu() {
         <div className="flex items-center px-4">
           <div className="flex-shrink-0">
             <Image
-              className="h-10 w-10 rounded-full"
+              className="rounded-full"
               src={user.pictureUrl}
               alt="Profile"
+              width={40}
+              height={40}
             />
           </div>
           <div className="ml-3 flex-grow">

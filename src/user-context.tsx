@@ -4,7 +4,6 @@ import type { PropsWithChildren } from "react";
 import { createContext, useContext } from "react";
 import invariant from "tiny-invariant";
 import type { ExtendedUser } from "@/auth.server";
-import { usePathname } from "next/navigation";
 
 const UserContext = createContext<ExtendedUser | undefined>(undefined);
 
